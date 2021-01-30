@@ -1,5 +1,6 @@
 import { Product } from '../Interfaces/Product';
 import { getProducts } from '../DB/Products.DB';
+import { appStore } from '../Store/AppStore';
 
 export class ProductsModel {
   static isExist = false;
@@ -15,7 +16,12 @@ export class ProductsModel {
   }
 
   getProducts(): Promise<Product[]> {
-    return getProducts();
+    return getProducts().then((products) => {
+      appStore.update({
+        products,
+      });
+      return products;
+    });
   }
 }
 

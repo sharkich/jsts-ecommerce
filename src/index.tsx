@@ -12,6 +12,6 @@ const app = new App();
 
 root.innerHTML = app.render();
 
-appStore.$render.subscribe(() => {
+appStore.$state.subscribe(() => {
   root.innerHTML = app.render();
 });

@@ -53,7 +53,7 @@ const PRODUCTS: Product[] = [
 export const getProducts = (): Promise<Product[]> => {
   return new Promise<Product[]>((resolve, reject) => {
     setTimeout(() => {
-      if (Math.random() < 0.7) {
+      if (Math.random() < 0.1) {
         reject(new Error('Something wend wrong'));
       } else {
         resolve(PRODUCTS);
