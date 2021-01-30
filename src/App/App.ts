@@ -5,10 +5,13 @@ export class App {
 
   render() {
     return `
-        <h1>App ECommerce</h1>
-        <div>
-            ${this.productsList.render()}
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          ${this.productsList.render()}
         </div>
+      </div>
+    </div>
     `;
   }
 }

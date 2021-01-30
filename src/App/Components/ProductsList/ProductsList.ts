@@ -31,16 +31,24 @@ export class ProductsList {
   render() {
     return `
         <h2>Products List</h2>
-        ${this.products
-          .map((product) => new ProductItem(product))
-          .map((product) => product.render())
-          .join('')}
-        ${this.loading ? '<p>Loading...</p>' : ''}
-        ${this.error ? `<p>${this.error.message}</p>` : ''}
-        <p>----</p>
+        <div style="display: flex; flex-wrap: wrap;">
+            ${this.products
+              .map((product) => new ProductItem(product))
+              .map((product) => product.render())
+              .join('')}
+        </div>
         <div>
-            <button>prev</button>
-            <button>next</button>
+        ${
+          this.loading
+            ? `<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>`
+            : ''
+        }
+        </div>
+        <div>${this.error ? `<div class="alert alert-danger" role="alert">${this.error.message}</div>` : ''}</div>
+        
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-primary">Prev</button>
+          <button type="button" class="btn btn-primary">Next</button>
         </div>
     `;
   }
