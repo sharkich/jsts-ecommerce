@@ -1,6 +1,7 @@
 import { ProductItem } from '../ProductItem';
 import { productsModel } from '../../Models/ProductsModel';
 import { Product } from '../../Interfaces/Product';
+import { appStore } from '../../Store/AppStore';
 
 export class ProductsList {
   private loading = false;
@@ -20,6 +21,10 @@ export class ProductsList {
       })
       .catch((error) => {
         this.error = error;
+      })
+      .finally(() => {
+        this.loading = false;
+        appStore.$render.next(null);
       });
   }
 
@@ -31,7 +36,7 @@ export class ProductsList {
           .map((product) => product.render())
           .join('')}
         ${this.loading ? '<p>Loading...</p>' : ''}
-        ${this.error ? `<p>${this.error.message}/p>` : ''}
+        ${this.error ? `<p>${this.error.message}</p>` : ''}
         <p>----</p>
         <div>
             <button>prev</button>
