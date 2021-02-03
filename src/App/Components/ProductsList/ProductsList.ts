@@ -2,17 +2,20 @@ import { ProductItem } from '../ProductItem';
 import { productsModel } from '../../Models/ProductsModel';
 import { Product } from '../../Interfaces/Product';
 import { appStore } from '../../Store/AppStore';
+import { AppComponent } from '../../Interfaces/AppComponent';
 
-export class ProductsList {
+export class ProductsList implements AppComponent {
   private loading = false;
   private error: Error | null = null;
   private products: Product[] = [];
+  private productsComponents: ProductItem[] = [];
 
   constructor() {
     this.fetchProducts();
 
     appStore.$state.subscribe(({ products }) => {
       this.products = products;
+      this.productsComponents = this.products.map((product) => new ProductItem(product));
       if (products.length) {
         this.loading = false;
         this.error = null;
@@ -33,10 +36,7 @@ export class ProductsList {
     return `
         <h2>Products List</h2>
         <div style="display: flex; flex-wrap: wrap;">
-            ${this.products
-              .map((product) => new ProductItem(product))
-              .map((product) => product.render())
-              .join('')}
+            ${this.productsComponents.map((product) => product.render()).join('')}
         </div>
         <div>
         ${
@@ -52,5 +52,9 @@ export class ProductsList {
           <button type="button" class="btn btn-primary">Next</button>
         </div>
     `;
+  }
+
+  addEvents() {
+    this.productsComponents.forEach((component) => component.addEvents());
   }
 }

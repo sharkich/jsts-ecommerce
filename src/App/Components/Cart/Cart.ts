@@ -1,7 +1,8 @@
 import { appStore } from '../../Store/AppStore';
 import { CartProducts } from '../../Store/State';
+import { AppComponent } from '../../Interfaces/AppComponent';
 
-export class Cart {
+export class Cart implements AppComponent {
   private products: CartProducts = {};
   private amount = 0;
   private sum = 0;
@@ -38,4 +39,6 @@ export class Cart {
       </div>
     `;
   }
+
+  addEvents() {}
 }
